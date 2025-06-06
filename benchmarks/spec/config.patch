@@ -1,0 +1,38 @@
+--- config/Example-linux64-ia32-gcc43+.cfg	2022-07-18 17:01:28.635530507 +0000
++++ config/default.cfg	2022-07-18 17:05:37.244432498 +0000
+@@ -34,7 +34,8 @@
+ tune          = base
+ basepeak      = yes
+ # Select and/or modify as needed
+-ext           = gcc43-32bit
++ext = bin32gcc43
++#ext           = gcc43-32bit
+ #ext           = gcc44-32bit
+ #ext           = gcc46-32bit
+ output_format = asc,csv,html
+@@ -77,9 +78,9 @@
+ #####################################################################
+ # NOTE: The path may be different if you use the compiler from
+ #       the gnu site.
+-CC                 = /usr/bin/gcc
+-CXX                = /usr/bin/g++
+-FC                 = /usr/bin/gfortran
++CC                 = /usr/bin/gcc-4.3
++CXX                = /usr/bin/g++-4.3
++FC                 = /usr/bin/gfortran-4.3
+ 
+ ## HW config
+ # default sysinfo is expected to write hw_cpu_name, hw_memory, hw_nchips,
+@@ -134,9 +135,9 @@
+ #####################################################################
+ 
+ default=base=default=default:
+-COPTIMIZE   = -O2 -fno-strict-aliasing -m32
+-CXXOPTIMIZE = -O2 -fno-strict-aliasing -m32
+-FOPTIMIZE   = -O2 -fno-strict-aliasing -m32
++COPTIMIZE   = -g -O2 -fno-strict-aliasing -m32
++CXXOPTIMIZE = -g -O2 -fno-strict-aliasing -m32
++FOPTIMIZE   = -g -O2 -fno-strict-aliasing -m32
+ 
+ #####################################################################
+ # Portability Flags

@@ -1,0 +1,15 @@
+[workspace]
+
+members = [
+    "trex/trex",
+    "utils/runner",
+    "utils/types2st",
+    "tools/baselinetrivial",
+    "metrics/scorer",
+    "metrics/standardized-scoring",
+]
+
+resolver = "2"
+
+[profile.release]
+debug = true

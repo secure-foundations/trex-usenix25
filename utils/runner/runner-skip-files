@@ -1,0 +1,18 @@
+# Skipped because technically not part of SPEC, despite spec producing the file
+benchmarks/spec/evalfiles/specrand_base
+
+# Skipped because Fortran
+benchmarks/spec/evalfiles/cactusADM_base
+benchmarks/spec/evalfiles/calculix_base
+benchmarks/spec/evalfiles/gromacs_base
+benchmarks/spec/evalfiles/wrf_base
+benchmarks/spec/evalfiles/GemsFDTD_base
+benchmarks/spec/evalfiles/bwaves_base
+benchmarks/spec/evalfiles/leslie3d_base
+benchmarks/spec/evalfiles/tonto_base
+benchmarks/spec/evalfiles/gamess_base
+benchmarks/spec/evalfiles/zeusmp_base
+
+# Skipped C++ files because Ghidra cannot analyze them correctly
+benchmarks/spec/evalfiles/dealII_base
+benchmarks/spec/evalfiles/Xalan_base

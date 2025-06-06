@@ -1,0 +1,12 @@
+[package]
+name = "types2st"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+clap = { version = "3.0.5", features = ["derive"] }
+trex = { path = "../../trex/trex" }
+mangling = "0.2.3"
+slog-scope = "4.4.0"
