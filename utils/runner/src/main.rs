@@ -44,6 +44,13 @@ pub(crate) static SYSTEMD_RUN_PATH: Lazy<Option<PathBuf>> = Lazy::new(|| {
         return None;
     }
 
+    if std::env::var("container").unwrap_or_default() == "podman" {
+        eprintln!(
+            "WARN: Automatic memory limits cannot currently be enforced inside a podman container"
+        );
+        return None;
+    }
+
     match Command::new("stat")
         .args(["-fc", "%T", "/sys/fs/cgroup/"])
         .output()
@@ -189,6 +196,8 @@ fn get_num_from_user(q: impl AsRef<str>, default: u64) -> u64 {
 
 #[derive(Display, FromStr, PartialEq, Debug, EnumIter, Clone)]
 enum Benchmark {
+    #[display("basic-test")]
+    BasicTest,
     #[display("coreutils")]
     Coreutils,
     #[display("spec")]
@@ -197,6 +206,7 @@ enum Benchmark {
 impl AsRef<OsStr> for Benchmark {
     fn as_ref(&self) -> &OsStr {
         let t = match self {
+            Benchmark::BasicTest => "basic-test",
             Benchmark::Coreutils => "coreutils",
             Benchmark::Spec => "spec",
         };
@@ -248,7 +258,12 @@ impl Runner {
         let progress_bar = ProgressBar::new(0)
             .with_style(
                 ProgressStyle::with_template(
-                    "{spinner} [{elapsed_precise} ETA={eta}] {bar:40.cyan/blue} {pos:>3}/{len:3} {msg}",
+                    // NOTE: ETA estimates are disabled, because they are inaccurate in the presence
+                    // of parallelism and caching. We may wish to re-enable them later if we can
+                    // make it more accurate in such scenarios.
+                    //
+                    // "{spinner} [{elapsed_precise} ETA={eta}] {bar:40.cyan/blue} {pos:>3}/{len:3} {msg}",
+                    "{spinner} [{elapsed_precise}] {bar:40.cyan/blue} {pos:>3}/{len:3} {msg}",
                 )
                 .unwrap(),
             )
@@ -505,6 +520,9 @@ pub(crate) enum ArgCommand {
         /// Disable timeout
         #[clap(long = "no-timeout")]
         no_timeout: bool,
+        /// Disable memory limits
+        #[clap(long = "no-mem-limit")]
+        no_mem_limit: bool,
     },
 }
 
@@ -540,6 +558,7 @@ impl std::fmt::Display for ArgCommand {
                 run_only_single_base,
                 skip_cache_read,
                 no_timeout,
+                no_mem_limit,
             } => {
                 write!(f, "jobs-for-benchmark '{benchmark}'")?;
                 for jt in cache_refresh {
@@ -563,6 +582,9 @@ impl std::fmt::Display for ArgCommand {
                 }
                 if *no_timeout {
                     write!(f, " --no-timeout")?;
+                }
+                if *no_mem_limit {
+                    write!(f, " --no-mem-limit")?;
                 }
                 Ok(())
             }
@@ -613,6 +635,7 @@ fn main() -> anyhow::Result<()> {
         };
         let skip_cache_read = confirm("Skip reading from cache (slow!)?", false);
         let no_timeout = confirm("No timeouts (dangerous!)?", false);
+        let no_mem_limit = confirm("No memory limit (dangerous!)?", false);
 
         let command = ArgCommand::JobsForBenchmark {
             benchmark,
@@ -628,6 +651,7 @@ fn main() -> anyhow::Result<()> {
             run_only_single_base: None,
             skip_cache_read,
             no_timeout,
+            no_mem_limit,
         };
 
         println!("To re-run with these settings, run:\n\n\tcargo run --bin runner --release -- {command}\n");
@@ -665,6 +689,7 @@ fn main() -> anyhow::Result<()> {
             run_only_single_base,
             skip_cache_read,
             no_timeout,
+            no_mem_limit,
         } => {
             Lazy::force(&SYSTEMD_RUN_PATH);
             if run_only_single_base.is_some() {
@@ -744,6 +769,7 @@ fn main() -> anyhow::Result<()> {
                 let jobs = jobs.into_iter().map(|mut j| {
                     j.skip_cache_read = skip_cache_read;
                     j.no_timeout = no_timeout;
+                    j.no_mem_limit = no_mem_limit;
                     j
                 });
                 runner.enqueue_many(jobs);

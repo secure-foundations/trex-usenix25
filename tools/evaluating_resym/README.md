@@ -28,7 +28,7 @@ working CUDA support.
     - Download `fielddecoder.zip` from the [ReSym Zenodo
       link](https://zenodo.org/records/15161423), and extract it to get
       `$RESYM_BASE_DIR/fielddecoder` directory.
-4. Run `cp requirements.txt $RESYM_BASE_DIR/`.
+4. Run `cp requirements.txt $RESYM_BASE_DIR/resym/`.
 5. Run `cp ./*_inf.py $RESYM_BASE_DIR/resym/training_src/`, overwriting the
    existing scripts there with patched ones.
 6. Make sure `ENABLE_RESYM=1` is set.

@@ -445,7 +445,12 @@ impl Job {
             JobType::RunTRex => (
                 vec![w("lifted"), w("vars")],
                 vec!["./trex/**/*.rs"],
-                vec![w("trex-st"), w("trex-clike"), w("trex-ssa"), w("trex-log")],
+                vec![
+                    w("trex-st"),
+                    w("trex-clike"),
+                    // w("trex-ssa"),
+                    // w("trex-log"),
+                ],
             ),
             JobType::RunGhidraPart1 => (
                 vec![w("ndbg-bin"), w("vars")],
@@ -616,8 +621,8 @@ impl Job {
                 let vars = &inputs[1];
                 let st = &outputs[0];
                 let clike = &outputs[1];
-                let ssa = &outputs[2];
-                let log = &outputs[3];
+                // let ssa = &outputs[2];
+                // let log = &outputs[3];
                 cmd!(
                     "cargo",
                     "run",
@@ -632,11 +637,11 @@ impl Job {
                     st,
                     "--output-c-like",
                     clike,
-                    "-ddd",
-                    "--dump-ssa-lifted",
-                    ssa,
-                    "--log",
-                    log,
+                    // "-ddd",
+                    // "--dump-ssa-lifted",
+                    // ssa,
+                    // "--log",
+                    // log,
                 )
             }
             JobType::RunGhidraPart1 => cmd!(!"run-ghidra-wvi-part1"),

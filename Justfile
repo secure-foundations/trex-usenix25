@@ -147,12 +147,12 @@ std-metrics foo extra_args="":
 # Compute all summarizes for files in `dir` for benchmark named `benchname` and store into `outdir`
 summarize-all dir benchname outdir:
     # Summarize standard metrics
-    python3 metrics/summarize/summarize_stdmetrics.py {{dir}} {{outdir}}/std-metrics.csv
+    uv run --isolated --with-requirements metrics/summarize/requirements.txt python3 metrics/summarize/summarize_stdmetrics.py {{dir}} {{outdir}}/std-metrics.csv
     # Summarize the scorecounts
-    python3 metrics/summarize/summarize_score_counts.py {{dir}} --benchmark-name {{benchname}} --output-figure {{outdir}}/eval-scorecounts.pdf
+    uv run --isolated --with-requirements metrics/summarize/requirements.txt python3 metrics/summarize/summarize_score_counts.py {{dir}} --benchmark-name {{benchname}} --output-figure {{outdir}}/eval-scorecounts.pdf
     # Summarize the generous scorecounts
-    ENABLE_GEN=1 python3 metrics/summarize/summarize_score_counts.py {{dir}} --benchmark-name {{benchname}} --output-figure {{outdir}}/geneval-scorecounts.pdf
+    ENABLE_GEN=1 uv run --isolated --with-requirements metrics/summarize/requirements.txt python3 metrics/summarize/summarize_score_counts.py {{dir}} --benchmark-name {{benchname}} --output-figure {{outdir}}/geneval-scorecounts.pdf
     # Summarize the binary scores
-    python3 metrics/summarize/summarize_binary_scores.py {{dir}} --benchmark-name {{benchname}} --output-figure {{outdir}}/eval-binscores.pdf --output-latex-summary {{outdir}}/summary.tex
+    uv run --isolated --with-requirements metrics/summarize/requirements.txt python3 metrics/summarize/summarize_binary_scores.py {{dir}} --benchmark-name {{benchname}} --output-figure {{outdir}}/eval-binscores.pdf --output-latex-summary {{outdir}}/summary.tex
     # Summarize the generous binary scores
-    python3 metrics/summarize/summarize_binary_scores.py {{dir}} --benchmark-name {{benchname}} --output-figure {{outdir}}/geneval-binscores.pdf
+    uv run --isolated --with-requirements metrics/summarize/requirements.txt python3 metrics/summarize/summarize_binary_scores.py {{dir}} --benchmark-name {{benchname}} --output-figure {{outdir}}/geneval-binscores.pdf

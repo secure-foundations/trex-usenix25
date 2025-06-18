@@ -34,6 +34,9 @@
   - Must be installed to `/opt/ghidra`.
   - Running `just ghidra-test` will output "Confirmed" if Ghidra is installed successfully.
 
+See [`./.docker/README.md`](./.docker/README.md) for a `Dockerfile` that
+installs the aforementioned requirements.
+
 <details><summary>Known-working versions (click to expand)</summary>
 
 The following versions of the above requirements have been tested. While we
