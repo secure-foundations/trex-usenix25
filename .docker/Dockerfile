@@ -2,14 +2,14 @@
 FROM ubuntu:24.04
 
 # Just a random value that can be changed to bust the cache. Get a new value using `head -1 /dev/urandom | sha256sum | cut -c1-16`
-ENV CACHE_BUSTER=b9b029d5912b0b49
+ENV CACHE_BUSTER=18c3e4f789922a1c
 
 # Make sure that apt-get doesn't prompt for input
 ENV DEBIAN_FRONTEND=noninteractive
 
 # Install dependencies
 RUN apt-get update
-RUN apt-get install -y curl unzip openjdk-17-jdk build-essential git llvm
+RUN apt-get install -y curl unzip openjdk-17-jdk build-essential git llvm rename
 
 # Install Rust to a specific toolchain version. More recent versions should
 # work, but this one is known to work with the code in this repository.

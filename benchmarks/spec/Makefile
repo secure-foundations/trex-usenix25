@@ -7,7 +7,10 @@ all:
 	$(MAKE) kill
 	$(MAKE) setup-evalfiles
 
-confirm-spec: cpu2006-1_2.tar.xz.sha256sum
+cpu2006-1_2.tar.xz:
+	$(error "[ERROR] No copy of $@ found. Please place a copy of SPEC CPU 2006 in this directory first before continuing.")
+
+confirm-spec: cpu2006-1_2.tar.xz.sha256sum cpu2006-1_2.tar.xz
 	@echo "Checking if the checksum for 'cpu2006-1_2.tar.xz' matches the expected"
 	sha256sum --check $<
 

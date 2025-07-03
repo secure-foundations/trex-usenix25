@@ -33,6 +33,7 @@
 * [Ghidra](https://github.com/NationalSecurityAgency/ghidra)
   - Must be installed to `/opt/ghidra`.
   - Running `just ghidra-test` will output "Confirmed" if Ghidra is installed successfully.
+* [rename](https://packages.ubuntu.com/noble/rename)
 
 See [`./.docker/README.md`](./.docker/README.md) for a `Dockerfile` that
 installs the aforementioned requirements.
@@ -48,6 +49,7 @@ expect code to work on more recent versions, your mileage may vary.
 * uv: 0.5.3
 * Ghidra: 10.4
   - **IMPORTANT**: Ghidra will likely require installing a specific version of JDK. Some of the more recent versions of JDK seem to sometimes break Ghidra, thus we recommend using JDK 17. We have tested this version of Ghidra to work successfully with [JDK (17.0.14)](https://www.oracle.com/java/technologies/javase/jdk17-0-13-later-archive-downloads.html). More recent versions of Ghidra may have fixed this issue.
+* rename: 2.02
 
 </details>
 
