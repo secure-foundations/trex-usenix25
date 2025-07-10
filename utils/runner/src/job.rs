@@ -182,7 +182,12 @@ impl JobType {
             | JobType::RunReSymPart4
             | JobType::RunReSymPart5
             | JobType::RunReSymPart6
-            | JobType::ScoreReSym
+            | JobType::ScoreReSym => resym_enabled(),
+            // The generous scoring is needed only if we are actually running on the ML-based
+            // experiments; otherwise, we can disable it
+            JobType::GenerousScoreTRex
+            | JobType::GenerousScoreGhidra
+            | JobType::GenerousScoreBaselineTrivial
             | JobType::GenerousScoreReSym => resym_enabled(),
             // Rest are enabled
             JobType::ConfirmBasicPreRequisites
@@ -199,9 +204,6 @@ impl JobType {
             | JobType::ScoreTRex
             | JobType::ScoreGhidra
             | JobType::ScoreBaselineTrivial
-            | JobType::GenerousScoreTRex
-            | JobType::GenerousScoreGhidra
-            | JobType::GenerousScoreBaselineTrivial
             | JobType::ComputeStandardMetrics
             | JobType::SummarizeAllMetrics => true,
         }

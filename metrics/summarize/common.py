@@ -1,5 +1,6 @@
 import argparse
 import os
+import sys
 
 parser = argparse.ArgumentParser()
 parser.add_argument("path", help="Path to the directory containing the eval files")
@@ -40,6 +41,9 @@ if os.getenv("ENABLE_RESYM") and args.benchmark_name in ("coreutils", "spec"):
     extension_map["scorer-resym"] = "ReSym"
 
 if os.getenv("ENABLE_GEN"):
+    if not "scorer-resym" in extensions:
+        # Skipping geneval for purely non-ML benchmarks
+        sys.exit(0)
     extensions = [f"gen-{ext}" for ext in extensions]
     extension_map = {f"gen-{ext}": tool for ext, tool in extension_map.items()}
 

@@ -155,4 +155,4 @@ summarize-all dir benchname outdir:
     # Summarize the binary scores
     uv run --isolated --with-requirements metrics/summarize/requirements.txt python3 metrics/summarize/summarize_binary_scores.py {{dir}} --benchmark-name {{benchname}} --output-figure {{outdir}}/eval-binscores.pdf --output-latex-summary {{outdir}}/summary.tex
     # Summarize the generous binary scores
-    uv run --isolated --with-requirements metrics/summarize/requirements.txt python3 metrics/summarize/summarize_binary_scores.py {{dir}} --benchmark-name {{benchname}} --output-figure {{outdir}}/geneval-binscores.pdf
+    ENABLE_GEN=1 uv run --isolated --with-requirements metrics/summarize/requirements.txt python3 metrics/summarize/summarize_binary_scores.py {{dir}} --benchmark-name {{benchname}} --output-figure {{outdir}}/geneval-binscores.pdf
