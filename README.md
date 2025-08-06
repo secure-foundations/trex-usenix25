@@ -9,8 +9,9 @@
 
 1. Please install all the [requirements](#requirements).
 2. Test that Ghidra is installed correctly, using `just ghidra-test`.
-3. Run `make` inside the benchmark you want to test (within `benchmarks/`) to populate it with the raw binaries.
-4. Run `cargo run --bin runner --release`, and select the benchmark interactively.
+3. Make sure that the [`trex`](https://github.com/secure-foundations/trex) repository has been correctly cloned within the current directory (you can use `just trex` to clone it into the correct path).
+4. Run `make` inside the benchmark you want to test (within `benchmarks/`) to populate it with the raw binaries.
+5. Run `cargo run --bin runner --release`, and select the benchmark interactively.
   - The runner is an interactive interface we've built for running all the steps of the evaluation conveniently.
   - Choosing the defaults for each prompt should work, but feel free to customize interactively.
     + Caveat: some jobs might expect prior jobs to have already been executed; if they have not, then the job will fail, rather than automatically attempt to run the older job. Such a failure would manifest as a missing file error.
@@ -20,7 +21,7 @@
     + The interactive interface helpfully provides a `jobs-for-benchmark` command after you've made your selections that you can copy-paste to run with the same settings.
     + A failed job _additionally_ provides its own command to run that job individually. While rarely necessary (re-running the whole batch via a `jobs-for-benchmark` command will likely fix things), if there are a large number of failures for a particular job, running an individual command lets you see stdout/stderr for the job, which can help diagnose faults.
   - The runner is aware of CPU and memory usage, and should automatically throttle its parallelism. Nonetheless, providing a limited amount of parallelism might help if you are on a severely constrained machine (at the cost of increased execution time).
-4. The results of the runner's jobs will automatically be placed into the relevant `benchmarks/` folder.
+6. The results of the runner's jobs will automatically be placed into the relevant `benchmarks/` folder.
   - Summaries show up at the base of the particular benchmark (e.g., `./benchmarks/coreutils/evalfiles/eval-binscores.pdf`).
   - Per-binary results (and intermediary files) show up alongside the binary.
 

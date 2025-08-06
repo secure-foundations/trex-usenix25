@@ -50,11 +50,14 @@ characteristics may vary.
        {SERVERNAME}` (not requiring additional username/password/etc.; you might
        need to set up `.ssh/config` / `.ssh/authorized_keys` for this).
     3. Confirm that `ssh {SERVERNAME} env | grep HF_TOKEN` outputs the
-       `HF_TOKEN`. You may need to set `.profile`, `.bashrc`, or similar
-       depending on your server setup.
-    4. Ensure that `python3` and `uv` are installed on server. The scripts will
-       automatically set up a virtual environment with the `requirements.txt` as
-       long as these two are installed.
+       `HF_TOKEN`. You may need to set `.profile`, `.bashrc`,
+       `/etc/environment`, or similar depending on your server setup.
+    4. Ensure that `python3` and `uv` are installed on server. You can test this
+       by running `ssh {SERVERNAME} uv --version` and checking that it correctly
+       returns something like `uv 0.7.3` (if not, again, check `.profile`/etc.
+       described above). The scripts will automatically set up a virtual
+       environment with the `requirements.txt` as long as these two are
+       installed.
 4. On the local (client) side:
     1. Set `REMOTE_SERVER` to the server name (such that `ssh $REMOTE_SERVER`
        works).
