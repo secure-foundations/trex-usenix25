@@ -10,6 +10,7 @@
 1. Please install all the [requirements](#requirements).
 2. Test that Ghidra is installed correctly, using `just ghidra-test`.
 3. Make sure that the [`trex`](https://github.com/secure-foundations/trex) repository has been correctly cloned within the current directory (you can use `just trex` to clone it into the correct path).
+  - If running inside a Docker/Podman container, this step must be performed within the container.
 4. Run `make` inside the benchmark you want to test (within `benchmarks/`) to populate it with the raw binaries.
 5. Run `cargo run --bin runner --release`, and select the benchmark interactively.
   - The runner is an interactive interface we've built for running all the steps of the evaluation conveniently.

@@ -16,6 +16,9 @@ Important notes:
 - We use [`podman`](https://podman.io/) rather than Docker in the Makefile. This
   means that `root` inside the container directly corresponds to the regular
   user inside, and no permission fixes are necessary if moving files in and out.
+- The [`trex`](https://github.com/secure-foundations/trex) repository must be
+  cloned within the `/trex-usenix25` directory inside the container. You can do
+  this by running `just trex` from within the container.
 - For evaluating against ML-based systems (specifically, for the last subsection
   of the evaluation: Section 5.3 of the paper), due to GPU requirements, we
   recommend setting up ReSym on a remote system with a powerful GPU (as per

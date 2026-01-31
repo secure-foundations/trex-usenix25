@@ -51,6 +51,13 @@ pub(crate) static SYSTEMD_RUN_PATH: Lazy<Option<PathBuf>> = Lazy::new(|| {
         return None;
     }
 
+    if PathBuf::from("/.dockerenv").exists() {
+        eprintln!(
+            "WARN: Automatic memory limits cannot currently be enforced inside a docker container"
+        );
+        return None;
+    }
+
     match Command::new("stat")
         .args(["-fc", "%T", "/sys/fs/cgroup/"])
         .output()
